@@ -1,16 +1,20 @@
 .login {
     min-height: 100vh;
-    background: url(/background.png) no-repeat;
+    background: url(/background.png) no-repeat center center;
     background-size: cover;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    padding: 20px;
+    gap: 30px;
 }
 
+/* Logo */
 .login .logo {
     width: max(20vw, 200px);
 }
 
+/* Login Form */
 .login-form {
     background: white;
     padding: 20px 30px;
@@ -19,19 +23,25 @@
     gap: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 400px;
 }
 
 .login-form h2 {
     font-weight: 500;
+    text-align: center;
 }
 
+/* Inputs */
 .form_input {
-    padding: 8px 10px;
+    padding: 10px 12px;
     border: 1px solid #c9c9c9;
     border-radius: 4px;
     outline-color: #077EFF;
+    font-size: 14px;
 }
 
+/* Button */
 .login-form button {
     padding: 10px;
     background-color: #077EFF;
@@ -42,13 +52,20 @@
     cursor: pointer;
 }
 
+.login-form button:hover {
+    background-color: #006ae0;
+}
+
+/* Terms */
 .login-term {
     display: flex;
     gap: 5px;
     font-size: 12px;
     color: #808080;
+    align-items: center;
 }
 
+/* Toggle text */
 .login-forgot {
     display: flex;
     flex-direction: column;
@@ -58,6 +75,7 @@
 .login-toggle {
     font-size: 13px;
     color: #5c5c5c;
+    text-align: center;
 }
 
 .login-toggle span {
@@ -66,7 +84,14 @@
     cursor: pointer;
 }
 
-
+/* Forgot password text */
+.forgot-text {
+    font-size: 13px;
+    color: #077EFF;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+}
 
 /* ---------------------------------------------------
    RESET PASSWORD POPUP STYLES
@@ -84,11 +109,13 @@
     align-items: center;
     justify-content: center;
     z-index: 99;
+    padding: 15px;
 }
 
 .reset-form {
     background: white;
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
     padding: 25px;
     border-radius: 10px;
     text-align: center;
@@ -130,8 +157,6 @@
     font-weight: 500;
 }
 
-
-
 /* Popup Animation */
 @keyframes popupFadeIn {
     0% {
@@ -144,10 +169,42 @@
     }
 }
 
-/* Forgot password text */
-.forgot-text {
-    font-size: 13px;
-    color: #077EFF;
-    cursor: pointer;
-    font-weight: 500;
+/* ---------------------------------------------------
+   RESPONSIVE BREAKPOINTS
+--------------------------------------------------- */
+
+/* Tablets */
+@media (max-width: 900px) {
+    .login {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .login .logo {
+        width: 220px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .login {
+        padding: 15px;
+    }
+
+    .login-form {
+        padding: 18px;
+    }
+
+    .form_input {
+        font-size: 13px;
+    }
+
+    .login-form button {
+        font-size: 15px;
+    }
+
+    .login-toggle,
+    .forgot-text {
+        font-size: 12px;
+    }
 }
