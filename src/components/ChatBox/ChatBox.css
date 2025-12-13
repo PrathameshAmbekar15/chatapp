@@ -4,11 +4,24 @@
 .chat-box {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
   width: 100%;
   background: #f0f2f5;
-  border-left: 1px solid #dbe1f0;
 }
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.chat-input-area {
+  position: sticky;
+  bottom: 0;
+  background: #f0f2f5;
+  z-index: 10;
+}
+
 
 /* ==============================
    NO CHAT SELECTED
