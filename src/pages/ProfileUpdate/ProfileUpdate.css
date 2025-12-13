@@ -1,58 +1,130 @@
-.profile{
+.profile {
     min-height: 100vh;
-    background: url(/background.png) no-repeat;
+    background: url(/background.png) no-repeat center center;
     background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 }
-.profile-container{
+
+/* Card */
+.profile-container {
     background: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-width: 700px;
+    width: 100%;
+    max-width: 900px;
     border-radius: 10px;
+    gap: 30px;
 }
-.profile-pic{
+
+/* Right side image */
+.profile-pic {
     max-width: 160px;
-    aspect-ratio: 1/1;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     margin: 20px auto;
     border-radius: 50%;
 }
-.profile form{
+
+/* Form */
+.profile form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 40px;
+    width: 100%;
 }
-.profile form h3{
+
+.profile form h3 {
     font-weight: 500;
+    text-align: left;
 }
-.profile label{
+
+/* Upload label */
+.profile label {
     display: flex;
     align-items: center;
     gap: 10px;
     color: grey;
     cursor: pointer;
+    flex-wrap: wrap;
 }
-.profile label img{
+
+.profile label img {
     width: 50px;
-    aspect-ratio: 1/1;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
 }
 
-.profile input,textarea{
+/* Inputs */
+.profile input,
+.profile textarea {
     padding: 10px;
-    min-width: 300px;
+    width: 100%;
+    min-width: 0;
     border: 1px solid #c9c9c9;
     outline-color: #077eff;
+    font-size: 14px;
 }
-.profile form button{
+
+/* Button */
+.profile form button {
     border: none;
     color: white;
     background-color: #077eff;
-    padding: 8px;
+    padding: 10px;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 4px;
+}
+
+/* -----------------------------
+   RESPONSIVE BREAKPOINTS
+----------------------------- */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .profile-container {
+        flex-direction: column-reverse;
+        padding: 20px;
+    }
+
+    .profile-pic {
+        max-width: 140px;
+    }
+
+    .profile form {
+        padding: 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .profile {
+        padding: 15px;
+    }
+
+    .profile-container {
+        gap: 20px;
+    }
+
+    .profile-pic {
+        max-width: 120px;
+    }
+
+    .profile form h3 {
+        text-align: center;
+    }
+
+    .profile label {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .profile form button {
+        font-size: 15px;
+    }
 }
