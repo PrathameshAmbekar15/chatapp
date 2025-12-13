@@ -39,21 +39,29 @@ const db = getFirestore(app);
 // ---------------------
 
 // Signup
+import { 
+  createUserWithEmailAndPassword 
+} from "firebase/auth";
+import { 
+  doc, 
+  setDoc, 
+  serverTimestamp 
+} from "firebase/firestore";
+
 export const signup = async (username, email, password) => {
-  try {
-    const userCred = await createUserWithEmailAndPassword(auth, email, password);
+  const res = await createUserWithEmailAndPassword(auth, email, password);
+  const user = res.user;
 
-    await setDoc(doc(db, "users", userCred.user.uid), {
-      username,
-      email
-    });
-
-    console.log("User created");
-  } catch (error) {
-    console.error(error.message);
-    alert(error.message);
-  }
+  await setDoc(doc(db, "users", user.uid), {
+    uid: user.uid,
+    username: username,
+    username_lower: username.toLowerCase(), // 🔥 STEP 1 ADDED HERE
+    email: user.email,
+    avatar: "",
+    createdAt: serverTimestamp()
+  });
 };
+
 
 // Login
 export const login = async (email, password) => {

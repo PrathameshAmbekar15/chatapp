@@ -65,6 +65,7 @@ const LeftSidebar = () => {
   const inputHandler = async (e) => {
     try {
       const input = e.target.value.trim().toLowerCase();
+
       if (!input) {
         setSearching(false);
         setSearchResults([]);
@@ -72,13 +73,15 @@ const LeftSidebar = () => {
       }
 
       setSearching(true);
+
       const q = query(
-        collection(db, 'users'),
-        where("username", ">=", input),
-        where("username", "<=", input + "\uf8ff")
+        collection(db, "users"),
+        where("username_lower", ">=", input),
+        where("username_lower", "<=", input + "\uf8ff")
       );
 
       const snap = await getDocs(q);
+
       const users = snap.docs
         .map(d => ({ id: d.id, ...d.data() }))
         .filter(u => u.id !== userData?.id);
@@ -88,9 +91,10 @@ const LeftSidebar = () => {
 
       setSearchResults(filtered);
     } catch (err) {
-      console.error('search error', err);
+      console.error("search error:", err);
     }
   };
+
 
   const addChat = async (selectedUser) => {
     try {
@@ -156,49 +160,49 @@ const LeftSidebar = () => {
     }
   };
 
-const handleChatSelect = async (chat) => {
-  try {
-    const now = Date.now();
+  const handleChatSelect = async (chat) => {
+    try {
+      const now = Date.now();
 
-    // Remove highlight instantly in UI
-    setUnseenChats(prev => ({ ...prev, [chat.rId]: false }));
+      // Remove highlight instantly in UI
+      setUnseenChats(prev => ({ ...prev, [chat.rId]: false }));
 
-    // Update selected chat in context
-    setSelectedChat({
-      ...chat,
-      messageSeen: true,
-      updatedAt: now
-    });
+      // Update selected chat in context
+      setSelectedChat({
+        ...chat,
+        messageSeen: true,
+        updatedAt: now
+      });
 
-    // --- FIX: Update Firestore CORRECTLY ---
-    const userChatRef = doc(db, "chats", userData.id);
-    const snap = await getDoc(userChatRef);
+      // --- FIX: Update Firestore CORRECTLY ---
+      const userChatRef = doc(db, "chats", userData.id);
+      const snap = await getDoc(userChatRef);
 
-    if (!snap.exists()) return;
+      if (!snap.exists()) return;
 
-    const chatsArr = snap.data().chatsData || [];
+      const chatsArr = snap.data().chatsData || [];
 
-    // Now correctly update the matched chat
-    const updatedChats = chatsArr.map(c => {
-      if (c.rId === chat.rId) {
-        return {
-          ...c,
-          messageSeen: true,
-          updatedAt: now
-        };
-      }
-      return c;
-    });
+      // Now correctly update the matched chat
+      const updatedChats = chatsArr.map(c => {
+        if (c.rId === chat.rId) {
+          return {
+            ...c,
+            messageSeen: true,
+            updatedAt: now
+          };
+        }
+        return c;
+      });
 
-    // Save updated chats back to Firestore
-    await updateDoc(userChatRef, {
-      chatsData: updatedChats
-    });
+      // Save updated chats back to Firestore
+      await updateDoc(userChatRef, {
+        chatsData: updatedChats
+      });
 
-  } catch (err) {
-    console.error("handleChatSelect error:", err);
-  }
-};
+    } catch (err) {
+      console.error("handleChatSelect error:", err);
+    }
+  };
 
 
   const formatTime = (ts) => {
@@ -219,7 +223,7 @@ const handleChatSelect = async (chat) => {
             <div className="sub-menu">
               <p onClick={() => navigate('/profile')}>Edit Profile</p>
               <hr />
-              
+
             </div>
           </div>
         </div>
